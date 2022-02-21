@@ -26,10 +26,6 @@ public class Bird{
         System.out.println(getClass().getSimpleName() + " can eat");
     }
 
-    void swim(){
-
-    }
-
     boolean doesMakesNest(){
         return false;
     }
