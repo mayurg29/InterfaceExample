@@ -19,12 +19,13 @@ public class Controller{
     public void handleUserSelection(int option){
         switch (option){
             case 1:
-                Bird duck = new Duck();
+                /*Bird duck = new Duck();
                 Bird penguin = new Penguin();
                 Bird parrot = new Parrot();
                 birdRepository.add(duck);
                 birdRepository.add(penguin);
-                birdRepository.add(parrot);
+                birdRepository.add(parrot);*/
+                addBird();
                 break;
             case 2:
                 System.out.println("Which bird you want to remove? \n duck, parrot, penguin");
@@ -51,6 +52,16 @@ public class Controller{
                 System.out.println("Invalid Option");
                 break;
         }
+    }
+
+    private void addBird() {
+        Bird bird = new Bird();
+        System.out.println("Enter the bird name");
+        bird.name = sc.next();
+        System.out.println("Enter the colour of bird");
+        setBirdColour(bird);
+        setBirdGender(bird);
+        birdRepository.add(bird);
     }
 
     private void update(Bird bird){

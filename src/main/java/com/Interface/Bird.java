@@ -1,6 +1,15 @@
 package com.Interface;
 
-public abstract class Bird{
+public class Bird{
+    @Override
+    public String toString() {
+        return "Bird{" +
+                "name = '" + name + '\'' +
+                ", colour = " + colour +
+                ", gender = " + gender +
+                '}';
+    }
+
     enum Colour{
         GREEN, BLACK, RED, YELLOW, WHITE, GREY;
     }
@@ -15,6 +24,10 @@ public abstract class Bird{
 
     void eat(){
         System.out.println(getClass().getSimpleName() + " can eat");
+    }
+
+    void swim(){
+
     }
 
     boolean doesMakesNest(){
