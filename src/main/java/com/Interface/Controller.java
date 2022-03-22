@@ -2,7 +2,7 @@ package com.Interface;
 
 import java.util.Scanner;
 
-public class Controller{
+public class Controller {
     UserInterface ui = new UserInterface();
     BirdRepository birdRepository = new BirdRepository();
     Scanner sc = new Scanner(System.in);
@@ -10,21 +10,16 @@ public class Controller{
     public static void main(String[] args) {
         Controller controller = new Controller();
         int option = 0;
-        while (option != 7){
+        while (option != 7) {
             option = controller.ui.showMainMenu();
             controller.handleUserSelection(option);
         }
     }
 
-    public void handleUserSelection(int option){
-        switch (option){
+    public void handleUserSelection(int option) {
+
+        switch (option) {
             case 1:
-                /*Bird duck = new Duck();
-                Bird penguin = new Penguin();
-                Bird parrot = new Parrot();
-                birdRepository.add(duck);
-                birdRepository.add(penguin);
-                birdRepository.add(parrot);*/
                 addBird();
                 break;
             case 2:
@@ -34,17 +29,19 @@ public class Controller{
                 birdRepository.remove(bird);
                 break;
             case 3:
-                System.out.println("Enter the bird to update");
+                System.out.println("Enter a bird to update");
                 String birdName1 = sc.next();
                 Bird bird1 = birdRepository.getBird(birdName1);
-                update(bird1);
+                updateBird(bird1);
                 break;
             case 4:
                 ui.printAllBirds(birdRepository.getBirdList());
                 break;
             case 5:
+                ui.printSwimmableBirds(birdRepository.getBirdList());
                 break;
             case 6:
+                ui.printFlyableBird(birdRepository.getBirdList());
                 break;
             case 7:
                 break;
@@ -61,13 +58,18 @@ public class Controller{
         System.out.println("Enter the colour of bird");
         setBirdColour(bird);
         setBirdGender(bird);
+        System.out.println("Enter is bird swimmable ?");
+        bird.isSwimmable = sc.nextBoolean();
+        System.out.println("Enter is bird flyable ?");
+        bird.isFlyable = sc.nextBoolean();
         birdRepository.add(bird);
     }
 
-    private void update(Bird bird){
-        System.out.println("Enter your Choice:\n 1.name \n 2.colour \n 3.gender");
+    private void updateBird(Bird bird) {
+        System.out.println("Enter your Choice:\n 1.name \n 2.colour \n 3.gender " +
+                            "\n 4.Swimmable \n 5.Flyable");
         int option = sc.nextInt();
-        switch (option){
+        switch (option) {
             case 1:
                 System.out.println("Enter the new name");
                 bird.name = sc.next();
@@ -78,6 +80,14 @@ public class Controller{
             case 3:
                 setBirdGender(bird);
                 break;
+            case 4:
+                System.out.println("Is bird swimmable?");
+                bird.isSwimmable = sc.nextBoolean();
+                break;
+            case 5:
+                System.out.println("Is bird Flyable?");
+                bird.isFlyable = sc.nextBoolean();
+                break;
             default:
                 System.out.println("Invalid option");
         }
@@ -85,9 +95,9 @@ public class Controller{
 
     private void setBirdColour(Bird bird) {
         System.out.println("Enter your choice: \n 1.GREEN \n 2.BLACK \n 3.RED \n " +
-                           "4.YELLOW \n 5.WHITE \n 6.GREY");
+                            "4.YELLOW \n 5.WHITE \n 6.GREY");
         int option = sc.nextInt();
-        switch (option){
+        switch (option) {
             case 1:
                 bird.colour = Bird.Colour.GREEN;
                 break;
@@ -114,7 +124,7 @@ public class Controller{
     private void setBirdGender(Bird bird) {
         System.out.println("Enter your choice: \n 1.MALE \n 2.FEMALE \n 3.OTHER");
         int option = sc.nextInt();
-        switch (option){
+        switch (option) {
             case 1:
                 bird.gender = Bird.Gender.MALE;
                 break;

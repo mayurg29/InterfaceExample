@@ -1,14 +1,6 @@
 package com.Interface;
 
 public class Bird{
-    @Override
-    public String toString() {
-        return "Bird{" +
-                "name = '" + name + '\'' +
-                ", colour = " + colour +
-                ", gender = " + gender +
-                '}';
-    }
 
     enum Colour{
         GREEN, BLACK, RED, YELLOW, WHITE, GREY;
@@ -21,6 +13,19 @@ public class Bird{
     String name;
     Colour colour;
     Gender gender;
+    boolean isFlyable;
+    boolean isSwimmable;
+
+    @Override
+    public String toString() {
+        return "Bird{" +
+                "name='" + name + '\'' +
+                ", colour=" + colour +
+                ", gender=" + gender +
+                ", isFlyable=" + isFlyable +
+                ", isSwimmable=" + isSwimmable +
+                '}';
+    }
 
     void eat(){
         System.out.println(getClass().getSimpleName() + " can eat");
