@@ -1,12 +1,24 @@
 package com.Interface;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BirdRepository {
-    private List<Bird> birdList = new ArrayList<>();
+    //private List<Bird> birdList = new ArrayList<>();
+    private Set<Bird> birdList = new HashSet<>();
+    private static BirdRepository instance;
 
-    public List<Bird> getBirdList() {
+    private BirdRepository() {
+    }
+
+    public static synchronized BirdRepository getInstance() {
+        if (instance == null) {
+            instance = new BirdRepository();
+        }
+        return instance;
+    }
+
+    public Set<Bird> getBirdList() {
         return birdList;
     }
 
@@ -18,11 +30,7 @@ public class BirdRepository {
         birdList.remove(bird);
     }
 
-    public Bird getBird(String name){
-        for (int i = 0; i < birdList.size(); i++){
-            if (name.equalsIgnoreCase(birdList.get(i).name))
-                return birdList.get(i);
-        }
-        return null;
+    public Bird getBird(String birdName){
+        return birdList.stream().filter(bird -> bird.name.equals(birdName)).findFirst().orElse(null);
     }
 }

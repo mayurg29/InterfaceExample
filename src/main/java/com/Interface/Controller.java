@@ -3,21 +3,22 @@ package com.Interface;
 import java.util.Scanner;
 
 public class Controller {
-    UserInterface ui = new UserInterface();
-    BirdRepository birdRepository = new BirdRepository();
-    Scanner sc = new Scanner(System.in);
+    static final int EXIT_VALUE = 8;
 
     public static void main(String[] args) {
         Controller controller = new Controller();
+        UserInterface ui = UserInterface.getInstance();
         int option = 0;
-        while (option != 7) {
-            option = controller.ui.showMainMenu();
+        while (option != EXIT_VALUE) {
+            option = ui.showMainMenu();
             controller.handleUserSelection(option);
         }
     }
 
     public void handleUserSelection(int option) {
-
+        Scanner sc = new Scanner(System.in);
+        UserInterface ui = UserInterface.getInstance();
+        BirdRepository birdRepository = BirdRepository.getInstance();
         switch (option) {
             case 1:
                 addBird();
@@ -44,6 +45,9 @@ public class Controller {
                 ui.printFlyableBird(birdRepository.getBirdList());
                 break;
             case 7:
+                ui.printEatingBehaviour(birdRepository.getBirdList());
+                break;
+            case EXIT_VALUE:
                 break;
             default:
                 System.out.println("Invalid Option");
@@ -52,7 +56,11 @@ public class Controller {
     }
 
     private void addBird() {
+        Scanner sc = new Scanner(System.in);
+        BirdRepository birdRepository = BirdRepository.getInstance();
         Bird bird = new Bird();
+        System.out.println("Enter the bird id");
+        bird.id = sc.next();
         System.out.println("Enter the bird name");
         bird.name = sc.next();
         System.out.println("Enter the colour of bird");
@@ -66,8 +74,9 @@ public class Controller {
     }
 
     private void updateBird(Bird bird) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter your Choice:\n 1.name \n 2.colour \n 3.gender " +
-                            "\n 4.Swimmable \n 5.Flyable");
+                            "\n 4.Swimmable \n 5.Flyable \n 6.Id");
         int option = sc.nextInt();
         switch (option) {
             case 1:
@@ -88,12 +97,16 @@ public class Controller {
                 System.out.println("Is bird Flyable?");
                 bird.isFlyable = sc.nextBoolean();
                 break;
+            case 6:
+                System.out.println("Enter the new Id");
+                bird.id = sc.next();
             default:
                 System.out.println("Invalid option");
         }
     }
 
     private void setBirdColour(Bird bird) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter your choice: \n 1.GREEN \n 2.BLACK \n 3.RED \n " +
                             "4.YELLOW \n 5.WHITE \n 6.GREY");
         int option = sc.nextInt();
@@ -122,6 +135,7 @@ public class Controller {
     }
 
     private void setBirdGender(Bird bird) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter your choice: \n 1.MALE \n 2.FEMALE \n 3.OTHER");
         int option = sc.nextInt();
         switch (option) {

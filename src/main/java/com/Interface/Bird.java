@@ -1,5 +1,7 @@
 package com.Interface;
 
+import java.util.Objects;
+
 public class Bird{
 
     enum Colour{
@@ -10,6 +12,7 @@ public class Bird{
         MALE, FEMALE, OTHER;
     }
 
+    String id;
     String name;
     Colour colour;
     Gender gender;
@@ -19,7 +22,8 @@ public class Bird{
     @Override
     public String toString() {
         return "Bird{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", colour=" + colour +
                 ", gender=" + gender +
                 ", isFlyable=" + isFlyable +
@@ -28,10 +32,19 @@ public class Bird{
     }
 
     void eat(){
-        System.out.println(getClass().getSimpleName() + " can eat");
+        System.out.println(name + " can eat");
     }
 
-    boolean doesMakesNest(){
-        return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bird bird = (Bird) o;
+        return id.equals(bird.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
